@@ -1,10 +1,17 @@
 
 import AnimatedSection from "../components/AnimatedSection";
+import { useGitHubData } from "../hooks/useGitHubData";
 import { Code, Cpu, Lightbulb, MessagesSquare } from "lucide-react";
 
 const AboutPage = () => {
+  const { languages, loading } = useGitHubData("Koon-Kiat");
+  
+  // Define skill categories
   const skills = [
-    { category: "Languages", items: ["JavaScript", "TypeScript", "Python", "Java"] },
+    { 
+      category: "Languages", 
+      items: loading ? ["Loading..."] : languages.length > 0 ? languages : ["JavaScript", "TypeScript", "Python", "Java"] 
+    },
     { category: "Frontend", items: ["React", "Vue.js", "HTML/CSS", "Tailwind CSS"] },
     { category: "Backend", items: ["Node.js", "Express", "Django", "FastAPI"] },
     { category: "Tools", items: ["Git", "Docker", "VS Code", "GitHub Actions"] },
@@ -104,7 +111,7 @@ const AboutPage = () => {
           </div>
         </AnimatedSection>
 
-        {/* Skills Section */}
+        {/* Skills Section - Now uses dynamic GitHub languages */}
         <AnimatedSection delay={200} className="mb-16">
           <h2 className="text-2xl font-bold mb-8 text-center">Skills & Technologies</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
