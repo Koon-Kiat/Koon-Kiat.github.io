@@ -112,8 +112,33 @@ export default {
 				'slide-out': 'slide-out 0.3s ease-out',
 				'slide-in-right': 'slide-in-right 0.3s ease-out',
 				'slide-out-right': 'slide-out-right 0.3s ease-out'
-			}
-		}
+			},
+			typography: {
+				DEFAULT: {
+					css: {
+						color: 'hsl(var(--foreground))',
+						a: {
+							color: 'hsl(var(--primary))',
+							'&:hover': {
+								color: 'hsl(var(--primary))',
+							},
+						},
+						'h1,h2,h3,h4,h5,h6': {
+							color: 'hsl(var(--foreground))',
+						},
+						'strong,b': {
+							color: 'hsl(var(--foreground))',
+						},
+						li: {
+							color: 'hsl(var(--foreground))',
+						},
+					},
+				},
+			},
+		},
 	},
-	plugins: [require("tailwindcss-animate")],
+	plugins: [
+		require("tailwindcss-animate"),
+		require('@tailwindcss/typography'),
+	],
 } satisfies Config;
