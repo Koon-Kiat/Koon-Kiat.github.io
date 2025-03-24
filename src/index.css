@@ -79,7 +79,6 @@
   }
 
   .prose-custom {
-    @apply prose-headings:text-foreground prose-p:text-foreground/90 prose-strong:text-foreground
-           prose-li:text-foreground/90 max-w-none;
+    @apply prose prose-lg max-w-none;
   }
 }
