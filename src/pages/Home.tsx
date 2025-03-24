@@ -2,7 +2,6 @@
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import AnimatedSection from "../components/AnimatedSection";
-import GitHubProfile from "../components/GitHubProfile";
 
 const Home = () => {
   return (
@@ -42,15 +41,6 @@ const Home = () => {
                 Get in Touch
               </Link>
             </div>
-          </AnimatedSection>
-        </div>
-      </section>
-      
-      {/* GitHub Profile Section */}
-      <section className="section-padding pb-24">
-        <div className="container mx-auto">
-          <AnimatedSection delay={300}>
-            <GitHubProfile username="Koon-Kiat" />
           </AnimatedSection>
         </div>
       </section>
