@@ -31,6 +31,7 @@ type Profile = {
 export const useGitHubData = (username: string) => {
   const [repositories, setRepositories] = useState<Repository[]>([]);
   const [profile, setProfile] = useState<Profile | null>(null);
+  const [languages, setLanguages] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -48,13 +49,23 @@ export const useGitHubData = (username: string) => {
         const profileData = await profileResponse.json();
         setProfile(profileData);
 
-        // Fetch repositories
-        const reposResponse = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=10`);
+        // Fetch all repositories (not just the first 10)
+        const reposResponse = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=100`);
         if (!reposResponse.ok) {
           throw new Error(`Failed to fetch repositories: ${reposResponse.statusText}`);
         }
         const reposData = await reposResponse.json();
         setRepositories(reposData);
+
+        // Extract unique languages from repositories
+        const uniqueLanguages = Array.from(
+          new Set(
+            reposData
+              .map((repo: Repository) => repo.language)
+              .filter((lang: string | null) => lang !== null)
+          )
+        );
+        setLanguages(uniqueLanguages as string[]);
       } catch (err) {
         console.error("Error fetching GitHub data:", err);
         setError(err instanceof Error ? err.message : "Unknown error occurred");
@@ -66,5 +77,5 @@ export const useGitHubData = (username: string) => {
     fetchData();
   }, [username]);
 
-  return { repositories, profile, loading, error };
+  return { repositories, profile, languages, loading, error };
 };
