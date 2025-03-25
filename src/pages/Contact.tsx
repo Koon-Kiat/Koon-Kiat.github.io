@@ -9,7 +9,8 @@ const Contact = () => {
         <AnimatedSection className="text-center mb-12">
           <h1 className="text-3xl md:text-4xl font-bold mb-4">Get in Touch</h1>
           <p className="text-foreground/80 max-w-2xl mx-auto">
-            Have a question or want to work together? Feel free to reach out through any of these channels.
+            Have a question or want to work together? Feel free to reach out
+            through any of these channels.
           </p>
         </AnimatedSection>
 
@@ -21,9 +22,9 @@ const Contact = () => {
                   <Mail className="w-8 h-8 text-foreground" />
                 </div>
                 <h3 className="text-xl font-semibold mb-3">Email</h3>
-                <p className="text-foreground/80 mb-4">your-email@example.com</p>
+                <p className="text-foreground/80 mb-4">[redacted]</p>
                 <a
-                  href="mailto:your-email@example.com"
+                  href="mailto:[redacted]"
                   className="inline-flex items-center text-foreground hover:underline"
                 >
                   Send an Email
@@ -53,7 +54,7 @@ const Contact = () => {
                 <h3 className="text-xl font-semibold mb-3">LinkedIn</h3>
                 <p className="text-foreground/80 mb-4">Connect with me</p>
                 <a
-                  href="https://linkedin.com/in/your-profile"
+                  href="https://www.linkedin.com/in/koon-kiat-boo/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center text-foreground hover:underline"
