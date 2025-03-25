@@ -1,40 +1,51 @@
 
 import AnimatedSection from "../components/AnimatedSection";
 import { useGitHubData } from "../hooks/useGitHubData";
-import { Code, Cpu, Lightbulb, MessagesSquare } from "lucide-react";
+import { Code, Shield, Lock, Database, AlertTriangle, Server, Network, FileCode } from "lucide-react";
 
 const AboutPage = () => {
-  const { languages, loading } = useGitHubData("Koon-Kiat");
+  const { languages, securitySkills, loading, securityRepos } = useGitHubData("Koon-Kiat");
   
   // Define skill categories
   const skills = [
     { 
       category: "Languages", 
-      items: loading ? ["Loading..."] : languages.length > 0 ? languages : ["JavaScript", "TypeScript", "Python", "Java"] 
+      items: loading ? ["Loading..."] : languages.length > 0 ? languages : ["Python", "C/C++", "Bash", "PowerShell"] 
     },
-    { category: "Frontend", items: ["React", "Vue.js", "HTML/CSS", "Tailwind CSS"] },
-    { category: "Backend", items: ["Node.js", "Express", "Django", "FastAPI"] },
-    { category: "Tools", items: ["Git", "Docker", "VS Code", "GitHub Actions"] },
+    { 
+      category: "Security Skills", 
+      items: loading ? ["Loading..."] : securitySkills.length > 0 
+        ? securitySkills.map(skill => skill.charAt(0).toUpperCase() + skill.slice(1)) 
+        : ["Vulnerability Assessment", "Penetration Testing", "Network Security", "Digital Forensics"]
+    },
+    { 
+      category: "Tools", 
+      items: ["Wireshark", "Metasploit", "Burp Suite", "Nmap", "Kali Linux"] 
+    },
+    { 
+      category: "Certifications", 
+      items: ["CompTIA Security+ (In Progress)", "eJPT (Studying for)"] 
+    },
   ];
 
   const experiences = [
     {
-      title: "Software Engineer",
-      company: "Tech Company",
+      title: "Cybersecurity Intern",
+      company: "University Security Team",
+      period: "2023 - Present",
+      description: "Assisted in vulnerability assessments and security monitoring. Learned about implementing security controls and responding to incidents."
+    },
+    {
+      title: "CTF Participant",
+      company: "Various Competitions",
+      period: "2022 - Present",
+      description: "Regularly participate in Capture The Flag competitions to enhance practical security skills including web exploitation, cryptography, and forensics."
+    },
+    {
+      title: "Security Researcher",
+      company: "Independent",
       period: "2021 - Present",
-      description: "Developed and maintained web applications using React and Node.js. Implemented new features and improved application performance."
-    },
-    {
-      title: "Frontend Developer",
-      company: "Digital Agency",
-      period: "2019 - 2021",
-      description: "Built responsive user interfaces using modern JavaScript frameworks. Collaborated with designers to implement pixel-perfect layouts."
-    },
-    {
-      title: "Junior Developer",
-      company: "Startup",
-      period: "2018 - 2019",
-      description: "Assisted in developing web applications and fixed bugs in existing codebase. Learned about agile development methodologies."
+      description: "Conduct independent research on emerging threats and vulnerabilities. Document findings and develop mitigation strategies."
     },
   ];
 
@@ -44,26 +55,27 @@ const AboutPage = () => {
         <AnimatedSection className="mb-16 text-center">
           <h1 className="text-3xl md:text-4xl font-bold mb-4">About Me</h1>
           <p className="text-foreground/80 max-w-2xl mx-auto">
-            A passionate developer with a focus on creating elegant and efficient solutions to complex problems.
+            A passionate cybersecurity student dedicated to understanding and mitigating digital threats.
           </p>
         </AnimatedSection>
 
         {/* Biography Section */}
         <AnimatedSection className="mb-16">
-          <div className="max-w-3xl mx-auto prose dark:prose-invert prose-custom">
+          <div className="max-w-3xl mx-auto prose dark:prose-invert">
             <p>
-              Hello! I'm a software developer with a passion for creating intuitive and performant applications. 
-              My journey in programming began with a curiosity for how digital things work, which quickly evolved into a 
-              career building solutions for real-world problems.
+              Hello! I'm a cybersecurity student with a focus on understanding and defending against digital threats.
+              My journey began with a curiosity about how systems work and how they can be secured, which evolved into a
+              dedication to the field of cybersecurity.
             </p>
             <p>
-              I specialize in full-stack development, with particular expertise in React and Node.js. 
-              I enjoy the process of taking a project from concept to completion, considering both the technical 
-              implementation and the user experience.
+              I specialize in vulnerability assessment, penetration testing, and security analysis.
+              I enjoy the process of identifying security flaws, understanding attack vectors, and implementing robust defenses
+              to protect critical systems and data.
             </p>
             <p>
-              When I'm not coding, you can find me exploring new technologies, contributing to open-source projects, 
-              or sharing knowledge with the developer community.
+              When I'm not studying security concepts, you can find me participating in CTF competitions, 
+              contributing to security research, or exploring new technologies to better understand 
+              potential vulnerabilities.
             </p>
           </div>
         </AnimatedSection>
@@ -74,44 +86,44 @@ const AboutPage = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div className="p-6 border border-border rounded-lg glass">
               <div className="mb-4 inline-flex items-center justify-center w-12 h-12 rounded-full bg-secondary">
+                <Shield className="w-6 h-6 text-foreground" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Defense in Depth</h3>
+              <p className="text-foreground/80">
+                I believe in implementing multiple layers of security controls to protect sensitive assets.
+              </p>
+            </div>
+            <div className="p-6 border border-border rounded-lg glass">
+              <div className="mb-4 inline-flex items-center justify-center w-12 h-12 rounded-full bg-secondary">
+                <AlertTriangle className="w-6 h-6 text-foreground" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Proactive Security</h3>
+              <p className="text-foreground/80">
+                Identifying and addressing vulnerabilities before they can be exploited is crucial for maintaining security.
+              </p>
+            </div>
+            <div className="p-6 border border-border rounded-lg glass">
+              <div className="mb-4 inline-flex items-center justify-center w-12 h-12 rounded-full bg-secondary">
+                <Lock className="w-6 h-6 text-foreground" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Privacy</h3>
+              <p className="text-foreground/80">
+                I'm committed to protecting sensitive data and respecting privacy as fundamental aspects of security.
+              </p>
+            </div>
+            <div className="p-6 border border-border rounded-lg glass">
+              <div className="mb-4 inline-flex items-center justify-center w-12 h-12 rounded-full bg-secondary">
                 <Code className="w-6 h-6 text-foreground" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Clean Code</h3>
+              <h3 className="text-xl font-semibold mb-2">Continuous Learning</h3>
               <p className="text-foreground/80">
-                I believe in writing clean, maintainable code that can be understood and extended by others.
-              </p>
-            </div>
-            <div className="p-6 border border-border rounded-lg glass">
-              <div className="mb-4 inline-flex items-center justify-center w-12 h-12 rounded-full bg-secondary">
-                <Cpu className="w-6 h-6 text-foreground" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Performance</h3>
-              <p className="text-foreground/80">
-                Optimizing for speed and efficiency is crucial for providing a good user experience.
-              </p>
-            </div>
-            <div className="p-6 border border-border rounded-lg glass">
-              <div className="mb-4 inline-flex items-center justify-center w-12 h-12 rounded-full bg-secondary">
-                <Lightbulb className="w-6 h-6 text-foreground" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Innovation</h3>
-              <p className="text-foreground/80">
-                I'm always exploring new technologies and approaches to solve problems in better ways.
-              </p>
-            </div>
-            <div className="p-6 border border-border rounded-lg glass">
-              <div className="mb-4 inline-flex items-center justify-center w-12 h-12 rounded-full bg-secondary">
-                <MessagesSquare className="w-6 h-6 text-foreground" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Communication</h3>
-              <p className="text-foreground/80">
-                Clear communication is essential for successful collaboration and project outcomes.
+                The security landscape evolves rapidly, requiring constant learning and adaptation to new threats.
               </p>
             </div>
           </div>
         </AnimatedSection>
 
-        {/* Skills Section - Now uses dynamic GitHub languages */}
+        {/* Skills Section - Now with cybersecurity focus */}
         <AnimatedSection delay={200} className="mb-16">
           <h2 className="text-2xl font-bold mb-8 text-center">Skills & Technologies</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -130,6 +142,36 @@ const AboutPage = () => {
             ))}
           </div>
         </AnimatedSection>
+        
+        {/* Security Projects */}
+        {!loading && securityRepos.length > 0 && (
+          <AnimatedSection delay={250} className="mb-16">
+            <h2 className="text-2xl font-bold mb-8 text-center">Security Projects</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+              {securityRepos.slice(0, 4).map((repo) => (
+                <div key={repo.id} className="p-6 border border-border rounded-lg glass">
+                  <h3 className="text-xl font-semibold mb-2">{repo.name}</h3>
+                  <p className="text-foreground/80 mb-4">{repo.description || "No description available"}</p>
+                  <div className="flex gap-2 flex-wrap mb-4">
+                    {repo.topics.map((topic) => (
+                      <span key={topic} className="px-2 py-1 bg-secondary rounded-full text-xs">
+                        {topic}
+                      </span>
+                    ))}
+                  </div>
+                  <a
+                    href={repo.html_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-foreground hover:underline inline-flex items-center"
+                  >
+                    View Project <FileCode className="ml-1 w-4 h-4" />
+                  </a>
+                </div>
+              ))}
+            </div>
+          </AnimatedSection>
+        )}
         
         {/* Experience Section */}
         <AnimatedSection delay={300}>
