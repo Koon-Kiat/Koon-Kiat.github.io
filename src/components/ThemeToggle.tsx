@@ -13,19 +13,23 @@ const ThemeToggle = () => {
     if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
       setIsDark(true);
       document.documentElement.classList.add("dark");
+      document.body.classList.add("dark");
     } else {
       setIsDark(false);
       document.documentElement.classList.remove("dark");
+      document.body.classList.remove("dark");
     }
   }, []);
 
   const toggleTheme = () => {
     if (isDark) {
       document.documentElement.classList.remove("dark");
+      document.body.classList.remove("dark");
       localStorage.setItem("theme", "light");
       setIsDark(false);
     } else {
       document.documentElement.classList.add("dark");
+      document.body.classList.add("dark");
       localStorage.setItem("theme", "dark");
       setIsDark(true);
     }
