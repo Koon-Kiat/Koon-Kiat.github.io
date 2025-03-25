@@ -1,10 +1,14 @@
 
 import AnimatedSection from "../components/AnimatedSection";
 import { useGitHubData } from "../hooks/useGitHubData";
-import { Code, Shield, Lock, Database, AlertTriangle, Server, Network, FileCode } from "lucide-react";
+import { useLinkedInData } from "../hooks/useLinkedInData";
+import { Code, Shield, Lock, Database, AlertTriangle, Server, Network } from "lucide-react";
 
 const AboutPage = () => {
-  const { languages, securitySkills, loading, securityRepos } = useGitHubData("Koon-Kiat");
+  const { languages, securitySkills, loading: githubLoading } = useGitHubData("Koon-Kiat");
+  const { experiences, loading: linkedinLoading } = useLinkedInData("koon-kiat-boo");
+  
+  const loading = githubLoading || linkedinLoading;
   
   // Define skill categories
   const skills = [
@@ -25,27 +29,6 @@ const AboutPage = () => {
     { 
       category: "Certifications", 
       items: ["CompTIA Security+ (In Progress)", "eJPT (Studying for)"] 
-    },
-  ];
-
-  const experiences = [
-    {
-      title: "Cybersecurity Intern",
-      company: "University Security Team",
-      period: "2023 - Present",
-      description: "Assisted in vulnerability assessments and security monitoring. Learned about implementing security controls and responding to incidents."
-    },
-    {
-      title: "CTF Participant",
-      company: "Various Competitions",
-      period: "2022 - Present",
-      description: "Regularly participate in Capture The Flag competitions to enhance practical security skills including web exploitation, cryptography, and forensics."
-    },
-    {
-      title: "Security Researcher",
-      company: "Independent",
-      period: "2021 - Present",
-      description: "Conduct independent research on emerging threats and vulnerabilities. Document findings and develop mitigation strategies."
     },
   ];
 
@@ -143,58 +126,41 @@ const AboutPage = () => {
           </div>
         </AnimatedSection>
         
-        {/* Security Projects */}
-        {!loading && securityRepos.length > 0 && (
-          <AnimatedSection delay={250} className="mb-16">
-            <h2 className="text-2xl font-bold mb-8 text-center">Security Projects</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
-              {securityRepos.slice(0, 4).map((repo) => (
-                <div key={repo.id} className="p-6 border border-border rounded-lg glass">
-                  <h3 className="text-xl font-semibold mb-2">{repo.name}</h3>
-                  <p className="text-foreground/80 mb-4">{repo.description || "No description available"}</p>
-                  <div className="flex gap-2 flex-wrap mb-4">
-                    {repo.topics.map((topic) => (
-                      <span key={topic} className="px-2 py-1 bg-secondary rounded-full text-xs">
-                        {topic}
-                      </span>
-                    ))}
-                  </div>
-                  <a
-                    href={repo.html_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-foreground hover:underline inline-flex items-center"
-                  >
-                    View Project <FileCode className="ml-1 w-4 h-4" />
-                  </a>
-                </div>
-              ))}
-            </div>
-          </AnimatedSection>
-        )}
-        
         {/* Experience Section */}
         <AnimatedSection delay={300}>
           <h2 className="text-2xl font-bold mb-8 text-center">Experience</h2>
           <div className="max-w-3xl mx-auto">
-            <div className="space-y-8">
-              {experiences.map((exp, index) => (
-                <div 
-                  key={index} 
-                  className="relative pl-8 pb-8 border-l border-border last:border-0 last:pb-0"
-                >
-                  <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-foreground"></div>
-                  <div>
-                    <h3 className="text-xl font-semibold">{exp.title}</h3>
-                    <div className="flex justify-between items-center mb-2">
-                      <span className="text-foreground/80">{exp.company}</span>
-                      <span className="text-sm text-muted-foreground">{exp.period}</span>
-                    </div>
-                    <p className="text-foreground/80">{exp.description}</p>
+            {loading ? (
+              <div className="space-y-4">
+                {[1, 2, 3].map((index) => (
+                  <div key={index} className="animate-pulse">
+                    <div className="h-6 bg-secondary rounded w-1/4 mb-3"></div>
+                    <div className="h-4 bg-secondary rounded w-3/4 mb-2"></div>
+                    <div className="h-4 bg-secondary rounded w-full mb-2"></div>
+                    <div className="h-4 bg-secondary rounded w-3/4"></div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            ) : (
+              <div className="space-y-8">
+                {experiences.map((exp, index) => (
+                  <div 
+                    key={index} 
+                    className="relative pl-8 pb-8 border-l border-border last:border-0 last:pb-0"
+                  >
+                    <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-foreground"></div>
+                    <div>
+                      <h3 className="text-xl font-semibold">{exp.title}</h3>
+                      <div className="flex justify-between items-center mb-2">
+                        <span className="text-foreground/80">{exp.company}</span>
+                        <span className="text-sm text-muted-foreground">{exp.period}</span>
+                      </div>
+                      <p className="text-foreground/80">{exp.description}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </AnimatedSection>
       </div>
