@@ -11,19 +11,19 @@ const Home = () => {
         <div className="container mx-auto">
           <AnimatedSection className="flex flex-col items-center text-center">
             <span className="text-sm md:text-base font-medium px-4 py-2 rounded-full bg-secondary text-secondary-foreground mb-6">
-              Software Developer & Engineer
+              Cybersecurity Student & Enthusiast
             </span>
             
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter mb-6">
-              Crafting digital experiences with{" "}
+              Securing digital landscapes with{" "}
               <span className="text-foreground relative">
-                precision and elegance
+                vigilance and expertise
               </span>
             </h1>
             
             <p className="text-foreground/80 text-lg md:text-xl max-w-3xl mb-8">
-              I'm a passionate developer focused on creating intuitive and 
-              high-performance applications. Explore my projects and see what I can build.
+              I'm a passionate cybersecurity student focused on understanding vulnerabilities,
+              implementing secure solutions, and protecting digital assets. Explore my projects and see how I contribute to a safer digital world.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 mt-4">
