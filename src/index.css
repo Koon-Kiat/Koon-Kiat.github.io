@@ -67,7 +67,7 @@
 
 @layer utilities {
   .glass {
-    @apply backdrop-blur-lg bg-white/5 border border-white/10;
+    @apply backdrop-blur-lg bg-white/5 border border-gray-200 dark:border-white/10;
   }
 
   .dark-glass {
@@ -79,6 +79,6 @@
   }
 
   .prose-custom {
-    @apply prose prose-lg max-w-none;
+    @apply prose max-w-none;
   }
 }
