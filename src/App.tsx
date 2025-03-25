@@ -27,9 +27,14 @@ const App = () => {
     
     if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
       document.documentElement.classList.add("dark");
+      document.body.classList.add("dark");
     } else {
       document.documentElement.classList.remove("dark");
+      document.body.classList.remove("dark");
     }
+    
+    // Add grid pattern to body for all pages
+    document.body.classList.add("dark:bg-grid-white", "bg-grid-dark");
   }, []);
 
   return (
