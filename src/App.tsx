@@ -33,8 +33,8 @@ const App = () => {
       document.body.classList.remove("dark");
     }
     
-    // Add grid pattern to body for all pages
-    document.body.classList.add("dark:bg-grid-white", "bg-grid-dark");
+    // Remove grid pattern classes from body
+    document.body.classList.remove("dark:bg-grid-white", "bg-grid-dark");
   }, []);
 
   return (
