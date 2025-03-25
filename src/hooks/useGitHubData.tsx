@@ -1,37 +1,19 @@
 
 import { useState, useEffect } from "react";
-
-type Repository = {
-  id: number;
-  name: string;
-  html_url: string;
-  description: string;
-  topics: string[];
-  language: string;
-  stargazers_count: number;
-  forks_count: number;
-  updated_at: string;
-  homepage: string | null;
-};
-
-type Profile = {
-  name: string;
-  login: string;
-  avatar_url: string;
-  html_url: string;
-  bio: string;
-  followers: number;
-  following: number;
-  public_repos: number;
-  location: string;
-  blog: string;
-  twitter_username: string | null;
-};
+import { 
+  fetchUserProfile, 
+  fetchUserRepositories, 
+  extractUniqueLanguages,
+  categorizeRepositoryForSecurity
+} from "../services/github/githubService";
+import { Profile, Repository } from "../services/github/types";
 
 export const useGitHubData = (username: string) => {
   const [repositories, setRepositories] = useState<Repository[]>([]);
+  const [securityRepos, setSecurityRepos] = useState<Repository[]>([]);
   const [profile, setProfile] = useState<Profile | null>(null);
   const [languages, setLanguages] = useState<string[]>([]);
+  const [securitySkills, setSecuritySkills] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -42,30 +24,33 @@ export const useGitHubData = (username: string) => {
         setError(null);
 
         // Fetch user profile
-        const profileResponse = await fetch(`https://api.github.com/users/${username}`);
-        if (!profileResponse.ok) {
-          throw new Error(`Failed to fetch GitHub profile: ${profileResponse.statusText}`);
-        }
-        const profileData = await profileResponse.json();
+        const profileData = await fetchUserProfile(username);
         setProfile(profileData);
 
-        // Fetch all repositories (not just the first 10)
-        const reposResponse = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=100`);
-        if (!reposResponse.ok) {
-          throw new Error(`Failed to fetch repositories: ${reposResponse.statusText}`);
-        }
-        const reposData = await reposResponse.json();
+        // Fetch all repositories
+        const reposData = await fetchUserRepositories(username);
         setRepositories(reposData);
 
         // Extract unique languages from repositories
-        const uniqueLanguages = Array.from(
-          new Set(
-            reposData
-              .map((repo: Repository) => repo.language)
-              .filter((lang: string | null) => lang !== null)
-          )
+        const uniqueLanguages = extractUniqueLanguages(reposData);
+        setLanguages(uniqueLanguages);
+
+        // Identify security-related repositories and skills
+        const securityRelated = reposData.filter(repo => {
+          const securityInfo = categorizeRepositoryForSecurity(repo);
+          return securityInfo.isCyberSecurity;
+        });
+        
+        setSecurityRepos(securityRelated);
+
+        // Extract unique security tags
+        const allSecurityTags = securityRelated.flatMap(repo => 
+          categorizeRepositoryForSecurity(repo).securityTags
         );
-        setLanguages(uniqueLanguages as string[]);
+        
+        const uniqueSecurityTags = Array.from(new Set(allSecurityTags));
+        setSecuritySkills(uniqueSecurityTags);
+
       } catch (err) {
         console.error("Error fetching GitHub data:", err);
         setError(err instanceof Error ? err.message : "Unknown error occurred");
@@ -77,5 +62,13 @@ export const useGitHubData = (username: string) => {
     fetchData();
   }, [username]);
 
-  return { repositories, profile, languages, loading, error };
+  return { 
+    repositories, 
+    securityRepos,
+    profile, 
+    languages, 
+    securitySkills,
+    loading, 
+    error 
+  };
 };

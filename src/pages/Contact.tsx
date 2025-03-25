@@ -1,6 +1,6 @@
 
 import AnimatedSection from "../components/AnimatedSection";
-import { Github, Linkedin, Mail } from "lucide-react";
+import { Github, Linkedin, Mail, Shield } from "lucide-react";
 
 const Contact = () => {
   return (
@@ -9,7 +9,7 @@ const Contact = () => {
         <AnimatedSection className="text-center mb-12">
           <h1 className="text-3xl md:text-4xl font-bold mb-4">Get in Touch</h1>
           <p className="text-foreground/80 max-w-2xl mx-auto">
-            Have a question or want to work together? Feel free to reach out
+            Have a security question or want to collaborate on a cybersecurity project? Feel free to reach out
             through any of these channels.
           </p>
         </AnimatedSection>
