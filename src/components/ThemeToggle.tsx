@@ -41,7 +41,7 @@ const ThemeToggle = () => {
       className="relative p-2 rounded-full bg-secondary hover:bg-secondary/80 transition-colors duration-200"
       aria-label="Toggle dark mode"
     >
-      <div className="transition-all duration-300 transform">
+      <div className="transition-all duration-200 transform">
         {isDark ? (
           <Moon className="h-5 w-5 text-foreground" />
         ) : (
