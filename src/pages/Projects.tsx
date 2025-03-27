@@ -1,30 +1,67 @@
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useGitHubData } from "../hooks/useGitHubData";
 import ProjectCard from "../components/ProjectCard";
 import AnimatedSection from "../components/AnimatedSection";
+import { Code } from "lucide-react";
+import { 
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue 
+} from "../components/ui/select";
 
 const Projects = () => {
   const { repositories, loading, error } = useGitHubData("Koon-Kiat");
   const [filter, setFilter] = useState("all");
 
   // Get unique languages from repositories
-  const languages = repositories
-    ? Array.from(
-        new Set(
-          repositories
-            .map((repo) => repo.language)
-            .filter((language): language is string => !!language)
-        )
-      )
-    : [];
+  const languages = useMemo(() => {
+    if (!repositories) return [];
+    
+    // Extract all languages and filter out nulls
+    const allLanguages = repositories
+      .map((repo) => repo.language)
+      .filter((language): language is string => !!language);
+    
+    // Create a map to count occurrences (for potential future sorting by popularity)
+    const languageCount = allLanguages.reduce((acc, lang) => {
+      acc[lang] = (acc[lang] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
+    
+    // Create a unique sorted array
+    return Array.from(new Set(allLanguages)).sort((a, b) => {
+      // First sort by count (descending)
+      const countDiff = languageCount[b] - languageCount[a];
+      if (countDiff !== 0) return countDiff;
+      
+      // Then alphabetically if counts are equal
+      return a.localeCompare(b);
+    });
+  }, [repositories]);
 
   // Filter repositories by language
-  const filteredRepositories = repositories
-    ? filter === "all"
+  const filteredRepositories = useMemo(() => {
+    if (!repositories) return [];
+    
+    return filter === "all"
       ? repositories
-      : repositories.filter((repo) => repo.language === filter)
-    : [];
+      : repositories.filter((repo) => repo.language === filter);
+  }, [repositories, filter]);
+  
+  // Count repositories by language for display in filter buttons
+  const languageCounts = useMemo(() => {
+    if (!repositories) return {};
+    
+    return repositories.reduce((acc, repo) => {
+      if (repo.language) {
+        acc[repo.language] = (acc[repo.language] || 0) + 1;
+      }
+      return acc;
+    }, {} as Record<string, number>);
+  }, [repositories]);
 
   return (
     <div className="min-h-screen pt-24 pb-16">
@@ -40,7 +77,8 @@ const Projects = () => {
         {/* Filter Controls */}
         {languages.length > 0 && (
           <AnimatedSection delay={200} className="mb-8">
-            <div className="flex flex-wrap justify-center gap-2 md:gap-4">
+            {/* Desktop filter buttons */}
+            <div className="hidden md:flex flex-wrap justify-center gap-2 md:gap-4">
               <button
                 onClick={() => setFilter("all")}
                 className={`px-4 py-2 rounded-full text-sm transition-colors ${
@@ -49,7 +87,7 @@ const Projects = () => {
                     : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
                 }`}
               >
-                All
+                All ({repositories?.length || 0})
               </button>
               {languages.map((language) => (
                 <button
@@ -61,9 +99,37 @@ const Projects = () => {
                       : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
                   }`}
                 >
-                  {language}
+                  {language} ({languageCounts[language] || 0})
                 </button>
               ))}
+            </div>
+
+            {/* Mobile dropdown filter */}
+            <div className="md:hidden flex justify-center mb-4">
+              <Select
+                value={filter}
+                onValueChange={setFilter}
+              >
+                <SelectTrigger className="w-[200px]">
+                  <SelectValue placeholder="Filter by Language" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">
+                    <span className="flex items-center">
+                      <Code className="mr-2 h-4 w-4" />
+                      All Languages
+                    </span>
+                  </SelectItem>
+                  {languages.map((language) => (
+                    <SelectItem key={language} value={language}>
+                      <span className="flex items-center">
+                        <Code className="mr-2 h-4 w-4" />
+                        {language} ({languageCounts[language]})
+                      </span>
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
           </AnimatedSection>
         )}
