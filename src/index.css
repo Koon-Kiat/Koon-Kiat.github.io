@@ -62,7 +62,7 @@
   body {
     @apply bg-background text-foreground antialiased;
     /* Reduce transition time for better performance */
-    transition: background-color 100ms ease, color 100ms ease;
+    transition: background-color 50ms ease-out;
     font-feature-settings: "ss01", "ss02", "cv01", "cv02", "cv03";
   }
   
@@ -72,15 +72,15 @@
     position: relative;
   }
   
-  /* Light mode background with enhanced colors */
+  /* Enhanced Light mode background with more distinctive elements */
   body:not(.dark) {
     background-image: 
-      radial-gradient(circle at 80% 20%, rgba(173, 216, 255, 0.25) 0%, transparent 25%),
-      radial-gradient(circle at 20% 60%, rgba(152, 255, 183, 0.22) 0%, transparent 30%),
-      radial-gradient(circle at 50% 80%, rgba(255, 214, 153, 0.2) 0%, transparent 20%),
-      radial-gradient(circle at 10% 40%, rgba(255, 183, 223, 0.15) 0%, transparent 25%),
-      radial-gradient(circle at 90% 70%, rgba(201, 255, 191, 0.18) 0%, transparent 25%),
-      linear-gradient(180deg, rgba(240, 245, 255, 0.05) 0%, rgba(230, 240, 250, 0.1) 100%);
+      radial-gradient(circle at 80% 20%, rgba(129, 182, 255, 0.3) 0%, transparent 25%),
+      radial-gradient(circle at 20% 60%, rgba(107, 255, 151, 0.28) 0%, transparent 30%),
+      radial-gradient(circle at 50% 80%, rgba(255, 189, 117, 0.25) 0%, transparent 20%),
+      radial-gradient(circle at 10% 40%, rgba(255, 140, 196, 0.2) 0%, transparent 25%),
+      radial-gradient(circle at 90% 70%, rgba(156, 255, 129, 0.22) 0%, transparent 25%),
+      linear-gradient(140deg, rgba(240, 249, 255, 0.8) 0%, rgba(226, 234, 255, 0.5) 50%, rgba(235, 245, 255, 0.8) 100%);
   }
   
   /* Dark mode background with enhanced orbs */
@@ -95,9 +95,9 @@
     background-size: 100% 100%;
   }
 
-  /* Speed up text color transitions */
+  /* Speed up text color transitions for all elements */
   h1, h2, h3, h4, h5, h6, p, span, button, a, li, input, textarea, label, div {
-    transition: color 100ms ease-out, background-color 100ms ease-out, border-color 100ms ease-out;
+    transition: color 50ms ease-out, background-color 50ms ease-out, border-color 50ms ease-out;
   }
 }
 
