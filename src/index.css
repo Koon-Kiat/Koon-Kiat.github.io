@@ -53,6 +53,9 @@
 @layer base {
   * {
     @apply border-border;
+    /* Make ALL transitions faster */
+    transition-duration: 30ms !important;
+    transition-timing-function: ease-out !important;
   }
   
   html {
@@ -61,8 +64,6 @@
 
   body {
     @apply bg-background text-foreground antialiased;
-    /* Reduce transition time for better performance */
-    transition: background-color 50ms ease-out;
     font-feature-settings: "ss01", "ss02", "cv01", "cv02", "cv03";
   }
   
@@ -95,9 +96,11 @@
     background-size: 100% 100%;
   }
 
-  /* Speed up text color transitions for all elements */
+  /* Set all text and element transitions to be extremely fast */
   h1, h2, h3, h4, h5, h6, p, span, button, a, li, input, textarea, label, div {
-    transition: color 50ms ease-out, background-color 50ms ease-out, border-color 50ms ease-out;
+    transition-property: color, background-color, border-color !important;
+    transition-duration: 30ms !important;
+    transition-timing-function: ease-out !important;
   }
 }
 
