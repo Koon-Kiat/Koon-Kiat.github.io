@@ -37,9 +37,6 @@ const AboutPage = () => {
       <div className="container mx-auto px-6">
         <AnimatedSection className="mb-16 text-center">
           <h1 className="text-3xl md:text-4xl font-bold mb-4">About Me</h1>
-          <p className="text-foreground/80 max-w-2xl mx-auto">
-            A passionate cybersecurity student dedicated to understanding and mitigating digital threats.
-          </p>
         </AnimatedSection>
 
         {/* Biography Section */}

@@ -22,14 +22,23 @@ const ThemeToggle = () => {
   }, []);
 
   const toggleTheme = () => {
+    // Create a single function to apply theme to prevent any timing issues
+    const applyTheme = (isDarkTheme: boolean) => {
+      if (isDarkTheme) {
+        document.documentElement.classList.add("dark");
+        document.body.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+        document.body.classList.remove("dark");
+      }
+    };
+
     if (isDark) {
-      document.documentElement.classList.remove("dark");
-      document.body.classList.remove("dark");
+      applyTheme(false);
       localStorage.setItem("theme", "light");
       setIsDark(false);
     } else {
-      document.documentElement.classList.add("dark");
-      document.body.classList.add("dark");
+      applyTheme(true);
       localStorage.setItem("theme", "dark");
       setIsDark(true);
     }
@@ -38,10 +47,10 @@ const ThemeToggle = () => {
   return (
     <button
       onClick={toggleTheme}
-      className="relative p-2 rounded-full bg-secondary hover:bg-secondary/80 transition-colors duration-200"
+      className="relative p-2 rounded-full bg-secondary hover:bg-secondary/80"
       aria-label="Toggle dark mode"
     >
-      <div className="transition-all duration-200 transform">
+      <div>
         {isDark ? (
           <Moon className="h-5 w-5 text-foreground" />
         ) : (
