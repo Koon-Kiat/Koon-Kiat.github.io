@@ -32,26 +32,11 @@ export default defineConfig(({ mode }) => ({
     // Minify output to reduce risk from inefficient RegExp
     minify: 'terser',
     terserOptions: {
-      compress: {
-        // Address potential RegExp DoS
-        regexp: false,
-      },
+      compress: true, // Changed from {regexp: false} to boolean
     },
   },
   plugins: [
-    react({
-      // Configure SWC to address Babel RegExp issue
-      swcOptions: {
-        jsc: {
-          transform: {
-            optimizer: {
-              // Disable transforms that might lead to RegExp issues
-              simplify: false,
-            },
-          },
-        },
-      },
-    }), 
+    react(), // Removed swcOptions as it's not a valid property
     mode === "development" && componentTagger()
   ].filter(Boolean),
   resolve: {
