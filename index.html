@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -15,6 +16,9 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@lovable_dev" />
     <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    
+    <!-- Content Security Policy to prevent unauthorized requests -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://api.github.com https://*.linkedin.com; script-src 'self' https://cdn.gpteng.co 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' https://*.githubusercontent.com https://*.github.com https://*.linkedin.com data:;" />
   </head>
 
   <body>

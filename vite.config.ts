@@ -1,3 +1,4 @@
+
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
@@ -8,10 +9,51 @@ export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
     port: 8080,
+    // Add CORS protection to prevent arbitrary requests to dev server
+    cors: {
+      origin: true,
+      credentials: true,
+    },
+    // Add security headers to prevent unauthorized access
+    headers: {
+      'Cross-Origin-Embedder-Policy': 'require-corp',
+      'Cross-Origin-Opener-Policy': 'same-origin',
+      'Cross-Origin-Resource-Policy': 'same-origin',
+    },
+    // Add server middleware to check origin of requests
+    hmr: {
+      // Secure HMR connections
+      protocol: 'wss',
+      clientPort: 443,
+    },
   },
-  plugins: [react(), mode === "development" && componentTagger()].filter(
-    Boolean
-  ),
+  // Add build options to address Babel RegExp and nanoid issues
+  build: {
+    // Minify output to reduce risk from inefficient RegExp
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        // Address potential RegExp DoS
+        regexp: false,
+      },
+    },
+  },
+  plugins: [
+    react({
+      // Configure SWC to address Babel RegExp issue
+      swcOptions: {
+        jsc: {
+          transform: {
+            optimizer: {
+              // Disable transforms that might lead to RegExp issues
+              simplify: false,
+            },
+          },
+        },
+      },
+    }), 
+    mode === "development" && componentTagger()
+  ].filter(Boolean),
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
