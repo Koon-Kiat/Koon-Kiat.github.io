@@ -39,27 +39,6 @@ const AboutPage = () => {
           <h1 className="text-3xl md:text-4xl font-bold mb-4">About Me</h1>
         </AnimatedSection>
 
-        {/* Biography Section */}
-        <AnimatedSection className="mb-16">
-          <div className="max-w-3xl mx-auto prose dark:prose-invert">
-            <p>
-              Hello! I'm a cybersecurity student with a focus on understanding and defending against digital threats.
-              My journey began with a curiosity about how systems work and how they can be secured, which evolved into a
-              dedication to the field of cybersecurity.
-            </p>
-            <p>
-              I specialize in vulnerability assessment, penetration testing, and security analysis.
-              I enjoy the process of identifying security flaws, understanding attack vectors, and implementing robust defenses
-              to protect critical systems and data.
-            </p>
-            <p>
-              When I'm not studying security concepts, you can find me participating in CTF competitions, 
-              contributing to security research, or exploring new technologies to better understand 
-              potential vulnerabilities.
-            </p>
-          </div>
-        </AnimatedSection>
-
         {/* Values Section */}
         <AnimatedSection delay={100} className="mb-16">
           <h2 className="text-2xl font-bold mb-8 text-center">My Values</h2>
