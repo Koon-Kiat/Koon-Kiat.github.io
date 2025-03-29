@@ -20,8 +20,11 @@ export default defineConfig(({ mode }) => ({
       'Cross-Origin-Opener-Policy': 'same-origin',
       'Cross-Origin-Resource-Policy': 'same-origin',
     },
-    // Update HMR configuration - remove secure WebSocket settings that require a token
-    hmr: true,
+    // Explicitly configure HMR without WebSocket token
+    hmr: {
+      clientPort: null, // Use the same port as the server
+      protocol: 'ws', // Use regular WebSockets instead of secure WebSockets
+    },
     // Explicitly deny access to sensitive files/directories
     fs: {
       strict: true,
