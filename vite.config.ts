@@ -20,8 +20,9 @@ export default defineConfig(({ mode }) => ({
       'Cross-Origin-Opener-Policy': 'same-origin',
       'Cross-Origin-Resource-Policy': 'same-origin',
     },
-    // Disable HMR to resolve the __WS_TOKEN__ error
+    // Disable HMR completely and set strictPort to false
     hmr: false,
+    strictPort: false,
     // Explicitly deny access to sensitive files/directories
     fs: {
       strict: true,
@@ -46,4 +47,8 @@ export default defineConfig(({ mode }) => ({
     },
   },
   base: "/",
+  // Force Vite to use standard WebSockets without token authentication
+  optimizeDeps: {
+    exclude: ['@vite/client'],
+  },
 }));
