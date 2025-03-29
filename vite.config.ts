@@ -1,3 +1,4 @@
+
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
@@ -29,6 +30,8 @@ export default defineConfig(({ mode }) => ({
     },
     // Disable WebSocket server completely
     ws: false,
+    // Add the blocked host to allowed hosts
+    allowedHosts: ["cbfb6f8c-9830-4ce1-89bc-52c184ae238a.lovableproject.com"],
   },
   // Add build options to address Babel RegExp and nanoid issues
   build: {
