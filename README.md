@@ -1,9 +1,8 @@
-
 # Cybersecurity Portfolio Website
 
 ## Project Overview
 
-This is a personal portfolio website for a cybersecurity student showcasing their projects, skills, and professional experience. The site integrates with GitHub to display repositories and projects with a focus on cybersecurity-related work.
+This is a personal portfolio website as a cybersecurity student showcasing their projects, skills, and professional experience. The site integrates with GitHub to display repositories and projects with a focus on cybersecurity-related work.
 
 ## Features
 
@@ -29,10 +28,10 @@ To run this project locally:
 
 ```sh
 # Clone the repository
-git clone <REPOSITORY_URL>
+git clone https://github.com/Koon-Kiat/Koon-Kiat.github.io.git
 
 # Navigate to the project directory
-cd <PROJECT_DIRECTORY>
+cd Koon-Kiat.github.io
 
 # Install dependencies
 npm install
@@ -51,20 +50,28 @@ npm run dev
 
 ## Deployment
 
-The project is configured for smooth deployment with Vite. To deploy:
+The project is configured for deployment to GitHub Pages.
 
-```sh
+```bash
 # Build for production
 npm run build
 
 # Preview the production build locally
 npm run preview
+
+# Deploy to GitHub Pages
+npm run deploy
 ```
 
-## Future Enhancements
+### GitHub Pages Setup
 
-- Blog/article section for cybersecurity topics
-- Interactive cybersecurity demo projects
-- More detailed project analysis and case studies
-- Integration with additional platforms (HackTheBox, TryHackMe)
+1. Ensure your `package.json` has the proper deployment scripts:
 
+   ```json
+   "predeploy": "npm run build",
+   "deploy": "gh-pages -d dist -b deploy"
+   ```
+
+2. After deploying, go to your GitHub repository's Settings → Pages.
+3. Set the source to "Deploy from a branch" and select the "deploy" branch.
+4. Your site will be available at `https://<username>.github.io`.
