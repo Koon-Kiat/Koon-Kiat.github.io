@@ -38,6 +38,10 @@ export default defineConfig(({ mode }) => ({
     terserOptions: {
       compress: true,
     },
+    // Ensure client scripts aren't included
+    rollupOptions: {
+      external: ["@vite/client"]
+    }
   },
   plugins: [
     react(), 
@@ -49,8 +53,14 @@ export default defineConfig(({ mode }) => ({
     },
   },
   base: "/",
-  // Exclude Vite client from dependencies
+  // Exclude Vite client from dependencies and disable HMR completely
   optimizeDeps: {
     exclude: ['@vite/client'],
   },
+  esbuild: {
+    define: {
+      // Define the token to prevent the error
+      __WS_TOKEN__: JSON.stringify("disabled")
+    }
+  }
 }));
