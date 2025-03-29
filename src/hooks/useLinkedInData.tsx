@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 
 // This is a mock function since direct LinkedIn API access requires authentication
@@ -7,22 +6,11 @@ const fetchLinkedInExperience = async (username: string) => {
   // Mock data - in a real app, this would come from LinkedIn API or your backend
   return [
     {
-      title: "Cybersecurity Intern",
-      company: "University InfoSec Team",
-      period: "2023 - Present",
-      description: "Vulnerability assessments, penetration testing, and security monitoring. Implemented security controls and incident response protocols."
-    },
-    {
-      title: "Security Analyst (Part-time)",
-      company: "CyberDefend Solutions",
-      period: "2022 - 2023",
-      description: "Analyzed security logs and alerts. Helped identify and mitigate potential threats. Participated in security audits and compliance reviews."
-    },
-    {
-      title: "CTF Team Lead",
-      company: "University Cyber Club",
-      period: "2021 - Present",
-      description: "Organized and led a team in various Capture The Flag competitions. Focused on web exploitation, cryptography challenges, and forensics."
+      title: "IT Support Engineer Intern",
+      company: "DataExpert Singapore",
+      period: "Sep 2021 - Feb 2022",
+      description:
+        "Conducted digital and mobile forensic investigations, implementing secure data disposal protocols and recovery procedures. Developed and facilitated comprehensive training courses on mobile forensic techniques for technical staff.",
     },
   ];
 };
@@ -44,7 +32,7 @@ export const useLinkedInData = (username: string) => {
       try {
         setLoading(true);
         setError(null);
-        
+
         const experienceData = await fetchLinkedInExperience(username);
         setExperiences(experienceData);
       } catch (err) {
