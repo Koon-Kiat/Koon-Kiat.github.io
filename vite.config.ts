@@ -20,12 +20,8 @@ export default defineConfig(({ mode }) => ({
       'Cross-Origin-Opener-Policy': 'same-origin',
       'Cross-Origin-Resource-Policy': 'same-origin',
     },
-    // Add server middleware to check origin of requests
-    hmr: {
-      // Secure HMR connections
-      protocol: 'wss',
-      clientPort: 443,
-    },
+    // Update HMR configuration - remove secure WebSocket settings that require a token
+    hmr: true,
     // Explicitly deny access to sensitive files/directories
     fs: {
       strict: true,
