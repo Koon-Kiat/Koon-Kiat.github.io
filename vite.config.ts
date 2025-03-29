@@ -20,7 +20,7 @@ export default defineConfig(({ mode }) => ({
       'Cross-Origin-Opener-Policy': 'same-origin',
       'Cross-Origin-Resource-Policy': 'same-origin',
     },
-    // Disable HMR completely and set strictPort to false
+    // Completely disable HMR and WebSocket functionality
     hmr: false,
     strictPort: false,
     // Explicitly deny access to sensitive files/directories
@@ -28,6 +28,8 @@ export default defineConfig(({ mode }) => ({
       strict: true,
       deny: ['.env', '.env.*', 'node_modules/.cache', '.git'],
     },
+    // Disable WebSocket server completely
+    ws: false,
   },
   // Add build options to address Babel RegExp and nanoid issues
   build: {
@@ -47,7 +49,7 @@ export default defineConfig(({ mode }) => ({
     },
   },
   base: "/",
-  // Force Vite to use standard WebSockets without token authentication
+  // Exclude Vite client from dependencies
   optimizeDeps: {
     exclude: ['@vite/client'],
   },
