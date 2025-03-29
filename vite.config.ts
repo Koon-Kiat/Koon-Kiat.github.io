@@ -42,7 +42,7 @@ export default defineConfig(({ mode }) => ({
     },
     // Ensure client scripts aren't included
     rollupOptions: {
-      external: ["@vite/client"],
+      external: ["@vite/client", "node_modules/vite/dist/client/env.mjs"],
     },
   },
   plugins: [react(), mode === "development" && componentTagger()].filter(
@@ -55,11 +55,19 @@ export default defineConfig(({ mode }) => ({
   },
   base: "/",
   define: {
-    // Define the token to prevent the error
-    __WS_TOKEN__: JSON.stringify("disabled"),
+    // Define environment variables
+    __VUE_OPTIONS_API__: true,
+    __VUE_PROD_DEVTOOLS__: false,
+    __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: false,
+    __INTLIFY_PROD_DEVTOOLS__: false,
+    "__WS_TOKEN__": JSON.stringify("disabled"),
+    "process.env.NODE_ENV": JSON.stringify(mode),
   },
   // For GitHub Pages deployment
   outDir: "dist",
-  minify: "terser",
-  sourcemap: true,
+  optimizeDeps: {
+    exclude: ["@vite/client"],
+  },
+  // Disable loading of env files
+  envFile: false,
 }));
