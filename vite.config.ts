@@ -26,17 +26,22 @@ export default defineConfig(({ mode }) => ({
       protocol: 'wss',
       clientPort: 443,
     },
+    // Explicitly deny access to sensitive files/directories
+    fs: {
+      strict: true,
+      deny: ['.env', '.env.*', 'node_modules/.cache', '.git'],
+    },
   },
   // Add build options to address Babel RegExp and nanoid issues
   build: {
     // Minify output to reduce risk from inefficient RegExp
     minify: 'terser',
     terserOptions: {
-      compress: true, // Changed from {regexp: false} to boolean
+      compress: true,
     },
   },
   plugins: [
-    react(), // Removed swcOptions as it's not a valid property
+    react(), 
     mode === "development" && componentTagger()
   ].filter(Boolean),
   resolve: {
