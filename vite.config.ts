@@ -1,4 +1,3 @@
-
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
@@ -16,9 +15,9 @@ export default defineConfig(({ mode }) => ({
     },
     // Add security headers to prevent unauthorized access
     headers: {
-      'Cross-Origin-Embedder-Policy': 'require-corp',
-      'Cross-Origin-Opener-Policy': 'same-origin',
-      'Cross-Origin-Resource-Policy': 'same-origin',
+      "Cross-Origin-Embedder-Policy": "require-corp",
+      "Cross-Origin-Opener-Policy": "same-origin",
+      "Cross-Origin-Resource-Policy": "same-origin",
     },
     // Completely disable HMR and WebSocket functionality
     hmr: false,
@@ -26,7 +25,7 @@ export default defineConfig(({ mode }) => ({
     // Explicitly deny access to sensitive files/directories
     fs: {
       strict: true,
-      deny: ['.env', '.env.*', 'node_modules/.cache', '.git'],
+      deny: [".env", ".env.*", "node_modules/.cache", ".git"],
     },
     // Disable WebSocket server completely
     ws: false,
@@ -34,33 +33,30 @@ export default defineConfig(({ mode }) => ({
   // Add build options to address Babel RegExp and nanoid issues
   build: {
     // Minify output to reduce risk from inefficient RegExp
-    minify: 'terser',
+    minify: "terser",
     terserOptions: {
       compress: true,
     },
     // Ensure client scripts aren't included
     rollupOptions: {
-      external: ["@vite/client"]
-    }
+      external: ["@vite/client"],
+    },
   },
-  plugins: [
-    react(), 
-    mode === "development" && componentTagger()
-  ].filter(Boolean),
+  plugins: [react(), mode === "development" && componentTagger()].filter(
+    Boolean
+  ),
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
   },
   base: "/",
-  // Exclude Vite client from dependencies and disable HMR completely
-  optimizeDeps: {
-    exclude: ['@vite/client'],
+  define: {
+    // Define the token to prevent the error
+    __WS_TOKEN__: JSON.stringify("disabled"),
   },
-  esbuild: {
-    define: {
-      // Define the token to prevent the error
-      __WS_TOKEN__: JSON.stringify("disabled")
-    }
-  }
+  // For GitHub Pages deployment
+  outDir: "dist",
+  minify: "terser",
+  sourcemap: true,
 }));
