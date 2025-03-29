@@ -50,7 +50,25 @@ npm run dev
 
 ## Deployment
 
-The project is configured for deployment to GitHub Pages.
+The project is configured for deployment to GitHub Pages using GitHub Actions.
+
+When you push changes to the `main` branch, GitHub Actions will automatically:
+
+1. Build your project
+2. Deploy it to the `deploy` branch
+3. Serve it through GitHub Pages
+
+You can also manually trigger a deployment from the "Actions" tab in your GitHub repository.
+
+### GitHub Pages Setup
+
+1. After the first successful GitHub Actions workflow run, go to your GitHub repository's Settings → Pages.
+2. Set the source to "Deploy from a branch" and select the "deploy" branch.
+3. Your site will be available at `https://<username>.github.io`.
+
+### Local Build
+
+You can still build the project locally:
 
 ```bash
 # Build for production
@@ -58,20 +76,10 @@ npm run build
 
 # Preview the production build locally
 npm run preview
-
-# Deploy to GitHub Pages
-npm run deploy
 ```
 
-### GitHub Pages Setup
+## Future Enhancements
 
-1. Ensure your `package.json` has the proper deployment scripts:
-
-   ```json
-   "predeploy": "npm run build",
-   "deploy": "gh-pages -d dist -b deploy"
-   ```
-
-2. After deploying, go to your GitHub repository's Settings → Pages.
-3. Set the source to "Deploy from a branch" and select the "deploy" branch.
-4. Your site will be available at `https://<username>.github.io`.
+- Add more projects and case studies
+- Improve mobile responsiveness and accessibility
+- Implement more advanced animations and transitions
