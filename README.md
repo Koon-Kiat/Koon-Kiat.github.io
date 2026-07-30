@@ -7,9 +7,10 @@ principles and technical capabilities.
 
 ## Current deployment
 
-The public site is currently in maintenance mode. The themed maintenance page
-is implemented in `src/Maintenance.tsx`, while the complete portfolio remains
-preserved in `src/Portfolio.tsx` for the next public release.
+The repository contains both the themed maintenance page in
+`src/Maintenance.tsx` and the complete portfolio in `src/Portfolio.tsx`.
+Production is switched between them from the manual **Deploy site** workflow.
+Builds default to maintenance mode when no site mode is supplied.
 
 ## Features
 
@@ -74,9 +75,17 @@ public/
 
 ## Deployment
 
-Pull requests run the full verification workflow. A verified push to `main`
-builds the site and publishes `dist/` to the `deploy` branch, which is the
-GitHub Pages source.
+Pull requests and pushes to `main` run the quality and CodeQL workflows without
+changing the live site. To publish a version:
+
+1. Open **Actions** in GitHub.
+2. Select **Deploy site**.
+3. Select **Run workflow** and keep the branch set to `main`.
+4. Choose `maintenance` or `portfolio`, then run the workflow.
+
+The selected mode is injected as `VITE_SITE_MODE` during the Vite build and the
+resulting artifact is deployed directly to GitHub Pages. It remains live until
+the workflow is run again with another mode.
 
 Dependency updates are managed by Dependabot. GitHub Actions are pinned to
 immutable commit SHAs.
