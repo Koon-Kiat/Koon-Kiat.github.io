@@ -13,6 +13,15 @@ updates:
       npm-dependencies:
         patterns:
           - "*"
+    ignore:
+      # TypeScript 7 is outside typescript-eslint 8's supported range.
+      - dependency-name: typescript
+        update-types:
+          - version-update:semver-major
+      # Version 11 drops the Node 20 support declared by this project.
+      - dependency-name: html-validate
+        update-types:
+          - version-update:semver-major
 
   - package-ecosystem: github-actions
     directory: /
