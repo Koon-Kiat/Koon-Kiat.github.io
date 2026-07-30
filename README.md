@@ -5,6 +5,12 @@ portfolio and résumé website. It presents selected cybersecurity, software,
 networking, and applied machine-learning projects alongside my working
 principles and technical capabilities.
 
+## Current deployment
+
+The public site is currently in maintenance mode. The themed maintenance page
+is implemented in `src/Maintenance.tsx`, while the complete portfolio remains
+preserved in `src/Portfolio.tsx` for the next public release.
+
 ## Features
 
 - Responsive single-page portfolio with dedicated About, Work, Skills, and
@@ -56,9 +62,11 @@ The development server is available at <http://127.0.0.1:5173/>.
 
 ```text
 src/
-  App.tsx       Portfolio content and page structure
-  index.css     Theme, layout, responsive, and print styles
-  main.tsx      React entry point
+  App.tsx          Current site entry point
+  Maintenance.tsx  Themed maintenance page
+  Portfolio.tsx    Preserved portfolio page
+  index.css        Theme, layout, responsive, and print styles
+  main.tsx         React entry point
 public/
   .well-known/  Security contact metadata
   404.html      GitHub Pages fallback
