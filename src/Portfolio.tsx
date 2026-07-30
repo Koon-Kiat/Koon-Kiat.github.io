@@ -5,7 +5,6 @@ import {
   BrainCircuit,
   BriefcaseBusiness,
   Code2,
-  Mail,
   Moon,
   Network,
   Printer,
@@ -205,10 +204,12 @@ function Portfolio() {
                 </a>
                 <a
                   className="button button-secondary"
-                  href="mailto:[redacted]"
+                  href="https://www.linkedin.com/in/koon-kiat-boo/"
+                  target="_blank"
+                  rel="noreferrer"
                 >
-                  Start a conversation
-                  <Mail aria-hidden="true" />
+                  Connect on LinkedIn
+                  <BriefcaseBusiness aria-hidden="true" />
                 </a>
               </div>
 
@@ -422,9 +423,14 @@ function Portfolio() {
             </p>
           </div>
           <div className="contact-actions">
-            <a className="button button-inverse" href="mailto:[redacted]">
-              <Mail aria-hidden="true" />
-              [redacted]
+            <a
+              className="button button-inverse"
+              href="https://github.com/Koon-Kiat"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <Code2 aria-hidden="true" />
+              View GitHub profile
             </a>
             <a
               className="button button-ghost"
