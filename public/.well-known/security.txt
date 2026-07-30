@@ -1,4 +1,4 @@
-Contact: mailto:[redacted]
+Contact: https://github.com/Koon-Kiat/Koon-Kiat.github.io/security/policy
 Canonical: https://koon-kiat.github.io/.well-known/security.txt
 Preferred-Languages: en
 Policy: https://github.com/Koon-Kiat/Koon-Kiat.github.io/security/policy
