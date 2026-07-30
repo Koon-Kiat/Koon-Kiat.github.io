@@ -1,3 +1,7 @@
 import Maintenance from "./Maintenance";
+import Portfolio from "./Portfolio";
 
-export default Maintenance;
+const App =
+  import.meta.env.VITE_SITE_MODE === "portfolio" ? Portfolio : Maintenance;
+
+export default App;
