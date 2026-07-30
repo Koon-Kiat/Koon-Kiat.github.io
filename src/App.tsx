@@ -273,10 +273,16 @@ function App() {
           </div>
         </section>
 
-        <section className="section section-about" id="about">
+        <section
+          className="section section-about"
+          id="about"
+          aria-labelledby="about-title"
+        >
           <div className="section-heading">
-            <p className="section-index">01 / Profile</p>
-            <h2>A security mindset that reaches beyond checklists.</h2>
+            <p className="section-index">01 / About</p>
+            <h2 id="about-title">
+              Curious about how systems fail—and how to make them hold up.
+            </h2>
           </div>
           <div className="about-grid">
             <div className="about-copy">
@@ -285,13 +291,14 @@ function App() {
                 applied research meet.
               </p>
               <p>
-                I build projects to understand how systems behave under real
-                constraints: messy data, limited visibility, changing
-                dependencies, and adversarial inputs. That means validating
-                assumptions, designing safe failure modes, and documenting what
-                the evidence does—and does not—support.
+                I enjoy turning unclear security questions into working systems
+                that can be inspected, tested, and improved. My projects explore
+                how software behaves under real constraints: messy data, limited
+                visibility, changing dependencies, and adversarial inputs.
               </p>
               <p>
+                That means validating assumptions, designing safe failure modes,
+                and documenting what the evidence does—and does not—support.
                 The result is a portfolio spanning secure web applications,
                 encrypted file sharing, network infrastructure, embedded
                 assistive technology, and leakage-aware machine learning.
