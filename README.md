@@ -1,85 +1,56 @@
-# Cybersecurity Portfolio Website
+# Koon Kiat — Portfolio
 
-## Project Overview
+A compact, accessible portfolio for selected work in cybersecurity, secure
+software, network infrastructure, and applied machine learning.
 
-This is a personal portfolio website as a cybersecurity student showcasing their projects, skills, and professional experience. The site integrates with GitHub to display repositories and projects with a focus on cybersecurity-related work.
+## What changed
 
-## Features
+- Replaced the maintenance page and placeholder content with the production
+  portfolio.
+- Removed mock LinkedIn data, stale template links, and the unauthenticated
+  runtime GitHub API dependency.
+- Reduced the application to three runtime packages.
+- Added a restrictive content security policy, security contact metadata,
+  accessible navigation, dark mode, reduced-motion support, and an A4
+  print/résumé layout.
+- Added locked CI checks for linting, strict TypeScript, production builds, and
+  dependency audits.
+- Pinned GitHub Actions to immutable commit SHAs.
 
-- **Responsive Design**: Fully responsive layout that works across all device sizes
-- **Dark/Light Mode**: Theme toggle for user preference
-- **GitHub Integration**: Real-time fetch of repositories and profile data
-- **LinkedIn Integration**: Display of professional experience
-- **Project Showcase**: Highlighted cybersecurity projects and skills
-- **Animated Sections**: Smooth animations for enhanced user experience
+## Local development
 
-## Technology Stack
+Requirements:
 
-- **Frontend**: React with TypeScript
-- **Styling**: Tailwind CSS with shadcn/ui components
-- **State Management**: React Hooks and Context
-- **Data Fetching**: Async data fetching with error handling
-- **Routing**: React Router for client-side navigation
-- **Build Tool**: Vite for fast development and optimized production builds
-
-## Getting Started
-
-To run this project locally:
+- Node.js 20.19 or newer
+- npm
 
 ```sh
-# Clone the repository
-git clone https://github.com/Koon-Kiat/Koon-Kiat.github.io.git
-
-# Navigate to the project directory
-cd Koon-Kiat.github.io
-
-# Install dependencies
-npm install
-
-# Start the development server
+npm ci
 npm run dev
 ```
 
-## Project Structure
+The local server binds to `127.0.0.1:5173` by default.
 
-- `/src/components`: UI components including navigation, cards, profiles
-- `/src/hooks`: Custom hooks for data fetching (GitHub, LinkedIn)
-- `/src/pages`: Main page components for routing
-- `/src/services`: API service functions
-- `/src/styles`: Global styling and Tailwind configuration
+## Verification
+
+```sh
+npm run check
+```
+
+This command runs ESLint, strict TypeScript checks, a production build, HTML
+validation, and `npm audit` at the lowest severity threshold.
 
 ## Deployment
 
-The project is configured for deployment to GitHub Pages using GitHub Actions.
+Pull requests and pushes to `main` run the verification job in
+`.github/workflows/deploy.yml`. A verified push to `main` publishes `dist/` to
+the `deploy` branch, which is the configured GitHub Pages source for
+<https://koon-kiat.github.io/>.
 
-When you push changes to the `main` branch, GitHub Actions will automatically:
+Dependency updates are grouped weekly through Dependabot. GitHub Actions
+updates are checked monthly.
 
-1. Build your project
-2. Deploy it to the `deploy` branch
-3. Serve it through GitHub Pages
+## Security
 
-You can also manually trigger a deployment from the "Actions" tab in your GitHub repository.
-
-### GitHub Pages Setup
-
-1. After the first successful GitHub Actions workflow run, go to your GitHub repository's Settings → Pages.
-2. Set the source to "Deploy from a branch" and select the "deploy" branch.
-3. Your site will be available at `https://<username>.github.io`.
-
-### Local Build
-
-You can still build the project locally:
-
-```bash
-# Build for production
-npm run build
-
-# Preview the production build locally
-npm run preview
-```
-
-## Future Enhancements
-
-- Add more projects and case studies
-- Improve mobile responsiveness and accessibility
-- Implement more advanced animations and transitions
+Please follow [.github/SECURITY.md](.github/SECURITY.md) to report a suspected
+vulnerability privately.

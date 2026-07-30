@@ -1,39 +1,81 @@
-name: Deploy to GitHub Pages
+name: Quality and deploy
 
 on:
+  pull_request:
+    branches: [main]
   push:
-    branches: [ main ]
+    branches: [main]
+  schedule:
+    - cron: "23 3 * * 1"
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
+
+concurrency:
+  group: portfolio-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  build-and-deploy:
+  verify:
+    name: Verify
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Set up Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
-          node-version: 18
-          cache: 'npm'
-          
-      - name: Install dependencies
-        run: npm install
-        
+          node-version: 24
+          cache: npm
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Type-check
+        run: npm run typecheck
+
       - name: Build
         run: npm run build
-        
-      - name: Create .nojekyll file
-        run: touch dist/.nojekyll
-        
-      - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@v4
+
+      - name: Validate generated HTML
+        run: npm run validate:html
+
+      - name: Audit dependencies
+        run: npm audit --audit-level=low
+
+  deploy:
+    name: Deploy
+    if: github.event_name == 'push'
+    needs: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Set up Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
-          folder: dist
+          node-version: 24
+          cache: npm
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Publish GitHub Pages branch
+        uses: JamesIves/github-pages-deploy-action@d92aa235d04922e8f08b40ce78cc5442fcfbfa2f # v4.8.0
+        with:
           branch: deploy
+          folder: dist
           clean: true
-          token: ${{ github.token }}

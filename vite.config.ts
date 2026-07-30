@@ -1,55 +1,25 @@
 import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react-swc";
-import path from "path";
+import react from "@vitejs/plugin-react";
 
-// https://vitejs.dev/config/
-export default defineConfig(({ mode }) => ({
-  server: {
-    host: "::",
-    port: 8080,
-    // Add CORS protection to prevent arbitrary requests to dev server
-    cors: {
-      origin: [
-        "https://cbfb6f8c-9830-4ce1-89bc-52c184ae238a.lovableproject.com",
-        "http://cbfb6f8c-9830-4ce1-89bc-52c184ae238a.lovableproject.com",
-      ],
-      credentials: true,
-    },
-    // Add security headers to prevent unauthorized access
-    headers: {
-      "Cross-Origin-Embedder-Policy": "require-corp",
-      "Cross-Origin-Opener-Policy": "same-origin",
-      "Cross-Origin-Resource-Policy": "same-origin",
-    },
-    // Completely disable HMR and WebSocket functionality
-    hmr: false,
-    strictPort: false,
-    // Explicitly deny access to sensitive files/directories
-    fs: {
-      strict: true,
-      deny: [".env", ".env.*", "node_modules/.cache", ".git"],
-    },
-    // Disable WebSocket server completely
-    ws: false,
-  },
-  // Add build options to address Babel RegExp and nanoid issues
-  build: {
-    // Minify output with esbuild instead of terser
-    minify: "esbuild",
-    // Ensure client scripts aren't included
-    rollupOptions: {
-      external: ["@vite/client"],
-    },
-  },
+export default defineConfig({
   plugins: [react()],
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "./src"),
+  base: "/",
+  server: {
+    host: "127.0.0.1",
+    port: 5173,
+    strictPort: true,
+    headers: {
+      "Referrer-Policy": "strict-origin-when-cross-origin",
+      "X-Content-Type-Options": "nosniff",
     },
   },
-  base: "/",
-  define: {
-    // Define the token to prevent the error
-    __WS_TOKEN__: JSON.stringify("disabled"),
+  preview: {
+    host: "127.0.0.1",
+    port: 4173,
+    strictPort: true,
   },
-}));
+  build: {
+    target: "es2022",
+    sourcemap: false,
+  },
+});
