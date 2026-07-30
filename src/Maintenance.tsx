@@ -54,7 +54,7 @@ function Maintenance() {
           <div className="maintenance-mark" aria-hidden="true">
             <Wrench />
           </div>
-          <p className="maintenance-kicker">Koon Kiat · Portfolio</p>
+          <p className="maintenance-kicker">Website update</p>
           <h1 id="maintenance-title">
             Site under <span className="accent-underline">maintenance.</span>
           </h1>
@@ -62,12 +62,6 @@ function Maintenance() {
             I’m currently working on improving this website. Please check back
             soon.
           </p>
-          <a
-            className="maintenance-contact"
-            href="mailto:[redacted]"
-          >
-            [redacted]
-          </a>
         </section>
       </main>
     </>

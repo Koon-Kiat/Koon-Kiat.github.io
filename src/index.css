@@ -308,20 +308,6 @@ main > section {
   line-height: 1.7;
 }
 
-.maintenance-contact {
-  display: inline-block;
-  padding: 0.35rem 0;
-  color: var(--ink);
-  font-size: 0.86rem;
-  font-weight: 700;
-  border-bottom: 1px solid var(--accent);
-  transition: color 160ms ease;
-}
-
-.maintenance-contact:hover {
-  color: var(--accent);
-}
-
 .hero {
   display: grid;
   align-items: center;
