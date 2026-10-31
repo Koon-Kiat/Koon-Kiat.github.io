@@ -22,6 +22,12 @@
     "react": "^19.3.0",
     "react-dom": "^19.3.0"
   },
+  "overrides": {
+    "minimatch": "^11.0.1",
+    "html-validate": {
+      "glob": "^14.0.2"
+    }
+  },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@types/react": "^19.3.0",
