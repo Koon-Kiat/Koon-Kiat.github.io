@@ -90,6 +90,13 @@ the workflow is run again with another mode.
 Dependency updates are managed by Dependabot. GitHub Actions are pinned to
 immutable commit SHAs.
 
+The dependency overrides keep `minimatch` at 11.0.1 or newer and the
+`html-validate` copy of `glob` at 14.0.2 or newer to address
+[glob pattern amplification](https://github.com/advisories/GHSA-g3hv-75wg-m249)
+and [incomplete traversal cancellation](https://github.com/advisories/GHSA-3g3m-2fjr-6pw4).
+These versions retain Node 20 support. Remove the overrides when the lint and
+HTML validation packages require patched versions themselves.
+
 ## Security
 
 To report a vulnerability privately, follow the instructions in
